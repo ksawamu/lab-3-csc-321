@@ -1,9 +1,9 @@
 from random import *
 from Crypto.Hash import SHA256
 from Crypto.Cipher import AES
-from Crypto.Util.Padding import pad
+from Crypto.Util.Padding import pad, unpad
 import hashlib
-
+from Crypto.Random import get_random_bytes
 
 def diffie_hellman():
     g = 35
@@ -16,7 +16,8 @@ def diffie_hellman():
     as_from_b = pow(b_public_message, a) % p
 
     k = hashlib.sha256(str(bs_from_a).encode()).digest()[:16]
-    cipher = AES.new(k, AES.MODE_CBC)
+    iv = get_random_bytes(16)
+    cipher = AES.new(k, AES.MODE_CBC, iv)
 
     m0 = "Hi Bob!"
     m1 = "Hi Alice!"
@@ -24,8 +25,13 @@ def diffie_hellman():
     c0 = cipher.encrypt(pad(str(m0).encode(), AES.block_size, style='pkcs7'))
     c1 = cipher.encrypt(pad(str(m1).encode(), AES.block_size, style='pkcs7'))
 
-    print(c0)
-    print(c1)
+    cipher = AES.new(k, AES.MODE_CBC, iv)
+
+    d0 = unpad(cipher.decrypt(c0), AES.block_size)
+    d1 = unpad(cipher.decrypt(c1), AES.block_size)
+
+    print(d0)
+    print(d1)
     return (bs_from_a == as_from_b)
 
 print(diffie_hellman())
