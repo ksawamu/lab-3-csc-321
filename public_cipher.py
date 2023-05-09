@@ -13,8 +13,8 @@ def diffie_hellman():
     b = randint(1, p -1)
     a_public_message = pow(g, a, p)
     b_public_message = pow(g, b, p)
-    bs_from_a = pow(a_public_message, b) % p
-    as_from_b = pow(b_public_message, a) % p
+    bs_from_a = pow(a_public_message, b, p)
+    as_from_b = pow(b_public_message, a, p)
 
     k = hashlib.sha256(str(bs_from_a).encode()).digest()[:16]
     iv = get_random_bytes(16)
