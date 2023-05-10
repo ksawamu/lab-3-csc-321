@@ -21,6 +21,7 @@ def diffie_hellman():
     as_from_b = pow(p, a, p)
 
     k = hashlib.sha256(str(bs_from_a).encode()).digest()[:16]
+    print(hashlib.sha256(str(bs_from_a).encode()))
     iv = get_random_bytes(16)
     cipher = AES.new(k, AES.MODE_CBC, iv)
 
