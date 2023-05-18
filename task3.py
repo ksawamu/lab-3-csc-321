@@ -5,7 +5,7 @@ from Crypto.Util.Padding import pad, unpad
 import hashlib
 from Crypto.Random import get_random_bytes
 from Crypto.Util.number import getPrime
-from math import *
+#from math import *
 
 # Source: https://www.geeksforgeeks.org/convert-a-string-to-hexadecimal-ascii-values/
 # function to convert ASCII to HEX
@@ -41,20 +41,19 @@ def diffie_hellman():
     p = getPrime(2048)
     q = getPrime(2048)
     n = p * q
-    
+    M = "some random message"
     e = 65537
     numBits = choice([2048, 512, 1024])
     k = str(getPrime(numBits)).encode('utf-8')[:16]
-    d = (1 % ((p - 1) *(q - 1)))/e # maybe cast to an int
-    lcm ((p - 1) *(q - 1)) # )) feed this output to a modular inverse
-    0(n) * (1/e) 
+    d = pow(e, -1, ((p - 1) *(q - 1)))
+    print(d)
 
-    #do encryption - one line with the pow
-    # while(gcd(e, (p-1) * (q -1)) != 1):
-    #     p = getPrime(2048)
-    #     q = getPrime(2048)
-    #     n = p * q
-    #     d = (1 % ((p - 1) *(q - 1)))/e # maybe cast to an int
+
+
+    # do encryption - one line with the pow
+    C = pow(M, e, n)
+    # do decryption
+    dM = pow(C, d, n)
 
     print("PU = ")
     print((e, n))
