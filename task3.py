@@ -41,19 +41,11 @@ def diffie_hellman():
     p = getPrime(2048)
     q = getPrime(2048)
     n = p * q
-    M = "some random message"
     e = 65537
     numBits = choice([2048, 512, 1024])
     k = str(getPrime(numBits)).encode('utf-8')[:16]
     d = pow(e, -1, ((p - 1) *(q - 1)))
     print(d)
-
-
-
-    # do encryption - one line with the pow
-    C = pow(M, e, n)
-    # do decryption
-    dM = pow(C, d, n)
 
     print("PU = ")
     print((e, n))
@@ -75,13 +67,14 @@ def diffie_hellman():
     print("e")
     print(type(e))
 
-    #print(m1)
 
     c = pow(m0, e, n)
     print("c")
     print(c)
-    m = pow(c, d) % n
+    m = pow(c, d, n)
+    m = bytearray.fromhex(hex(m)[2:]).decode()
     print("m")
+
     print(m)
 
 
