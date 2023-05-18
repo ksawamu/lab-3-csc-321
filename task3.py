@@ -46,11 +46,15 @@ def diffie_hellman():
     numBits = choice([2048, 512, 1024])
     k = str(getPrime(numBits)).encode('utf-8')[:16]
     d = (1 % ((p - 1) *(q - 1)))/e # maybe cast to an int
-    while(gcd(e, (p-1) * (q -1)) != 1):
-        p = getPrime(2048)
-        q = getPrime(2048)
-        n = p * q
-        d = (1 % ((p - 1) *(q - 1)))/e # maybe cast to an int
+    lcm ((p - 1) *(q - 1)) # )) feed this output to a modular inverse
+    0(n) * (1/e) 
+
+    #do encryption - one line with the pow
+    # while(gcd(e, (p-1) * (q -1)) != 1):
+    #     p = getPrime(2048)
+    #     q = getPrime(2048)
+    #     n = p * q
+    #     d = (1 % ((p - 1) *(q - 1)))/e # maybe cast to an int
 
     print("PU = ")
     print((e, n))
