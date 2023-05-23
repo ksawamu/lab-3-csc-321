@@ -42,46 +42,14 @@ def diffie_hellman():
     q = getPrime(2048)
     n = p * q
     e = 65537
-    numBits = choice([2048, 512, 1024])
-    k = str(getPrime(numBits)).encode('utf-8')[:16]
     d = pow(e, -1, ((p - 1) *(q - 1)))
-    print(d)
-
-    print("PU = ")
-    print((e, n))
-    print("PR = ")
-    print((d, n))
-    print(k)
-    #multInv = 1/k
-
     m0 = int(ASCIItoHEX("Hi Bob!"), 16)
-   # m1 = "Hi Alice!".encode('utf-8').hex()
-    print(m0)
-    print("m")
-    print(type(m0))
-    print("d")
-    print(d)
-    print(type(d))
-    print("n")
-    print(type(n))
-    print("e")
-    print(type(e))
-
-
     c = pow(m0, e, n)
-    print("c")
-    print(c)
     m = pow(c, d, n)
     m = bytearray.fromhex(hex(m)[2:]).decode()
-    print("m")
-
     print(m)
 
 
-    a = randint(1, p -1)
-    b = randint(1, p -1)
-
-
-    return "=^x^="
+    return True
 
 print(diffie_hellman())
