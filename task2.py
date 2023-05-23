@@ -17,8 +17,10 @@ def diffie_hellman():
 
 
 
-    bs_from_a = pow(p, b, p)
-    as_from_b = pow(p, a, p)
+    # bs_from_a = pow(p, b, p)
+    # as_from_b = pow(p, a, p)
+    bs_from_a = pow(a_public_message, b, p)
+    as_from_b = pow(b_public_message, a, p)
 
     k = hashlib.sha256(str(bs_from_a).encode()).digest()[:16]
     print(hashlib.sha256(str(bs_from_a).encode()))
