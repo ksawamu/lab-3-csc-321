@@ -16,14 +16,11 @@ def diffie_hellman():
     b_public_message = pow(g, b, p)
 
 
+    b_symmetric_from_a = pow(a_public_message, b, p)
+    a_symmetric_from_b = pow(b_public_message, a, p)
 
-    # bs_from_a = pow(p, b, p)
-    # as_from_b = pow(p, a, p)
-    bs_from_a = pow(a_public_message, b, p)
-    as_from_b = pow(b_public_message, a, p)
-
-    k = hashlib.sha256(str(bs_from_a).encode()).digest()[:16]
-    print(hashlib.sha256(str(bs_from_a).encode()))
+    k = hashlib.sha256(str(b_symmetric_from_a).encode()).digest()[:16]
+    print(hashlib.sha256(str(b_symmetric_from_a).encode()))
     iv = get_random_bytes(16)
     cipher = AES.new(k, AES.MODE_CBC, iv)
 
@@ -40,6 +37,6 @@ def diffie_hellman():
 
     print(d0)
     print(d1)
-    return bs_from_a == as_from_b
+    return b_symmetric_from_a == a_symmetric_from_b
 
 print(diffie_hellman())
